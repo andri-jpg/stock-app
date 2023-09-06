@@ -44,8 +44,18 @@ if (isset($_POST['login'])) {
         <title>Login</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <style>
+    body {
+        background-image: url('images/wp.jpg'); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+</style>
+
     </head>
-    <body style="background-color: aliceblue">
+    <body>
         <div id="layoutAuthentication" style="height: 100vh" class="flex-row align-items-center">
             <div id="layoutAuthentication_content">
                 <main>
@@ -76,11 +86,6 @@ if (isset($_POST['login'])) {
                         </div>
                     </div>
                 </main>
-                <div class="mx-auto mt-5" style="max-width: 600px">
-                    <p class="text-center py-2 mx-2 mb-0 bg-light">
-                        Email : admin@gmail.com ; Password : admin
-                    </p>
-                </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
