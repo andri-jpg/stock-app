@@ -4,15 +4,19 @@
             <div class="nav mt-3">
                 <a class="nav-link" href="index.php">
                     <div class="sb-nav-link-icon <?php echo strpos($_SERVER['REQUEST_URI'], 'home') ? 'text-primary' : ''; ?>"><i class="fa-solid fa-layer-group"></i></div>
-                    Stok Barang
+                    Stok Spanduk
                 </a>
                 <a class="nav-link" href="barang_masuk.php">
                     <div class="sb-nav-link-icon <?php echo strpos($_SERVER['REQUEST_URI'], 'barang_masuk') ? 'text-primary' : ''; ?>"><i class="fa-solid fa-circle-plus"></i></div>
-                    Barang Masuk
+                    Spanduk masuk
                 </a>
                 <a class="nav-link" href="barang_keluar.php">
                     <div class="sb-nav-link-icon <?php echo strpos($_SERVER['REQUEST_URI'], 'barang_keluar') ? 'text-primary' : ''; ?>"><i class="fa-solid fa-circle-minus"></i></div>
-                    Barang Keluar
+                    Cetak Spanduk
+                </a>
+                <a class="nav-link" href="history.php">
+                    <div class="sb-nav-link-icon <?php echo strpos($_SERVER['REQUEST_URI'], 'history') ? 'text-primary' : ''; ?>"><i class="fa-solid fa-clock"></i></div>
+                    History
                 </a>
                 <a class="nav-link mt-4" href="logout.php">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>

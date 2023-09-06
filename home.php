@@ -16,10 +16,8 @@ require 'get_stok_barang.php';
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Aplikasi Management Stok Barang" />
-        <meta name="keywords" content="Management Stock, Stock App, Barang" />
-        <meta name="author" content="Alan Nuari" />
+       
+        <meta name="author" content="-" />
         <link rel="shortcut icon" href="./images/icon.png" type="image/x-icon" />
         <title>Stok Barang</title>
         <link href="css/styles.css" rel="stylesheet" />
@@ -36,12 +34,12 @@ require 'get_stok_barang.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-sm-4">
-                        <h1 class="my-4">Stok Barang</h1>
+                        <h1 class="my-4">Stok Spanduk</h1>
                         <div class="card mb-4">
                             <div class="card-header d-flex justify-content-between align-items-sm-center flex-column flex-sm-row">
                                 <div class="py-2">
                                     <i class="fas fa-table me-1"></i>
-                                    Data Stok Barang
+                                    Stok Spanduk
                                 </div>
                                 <button type="button" class="btn btn-primary mr-auto" data-bs-toggle="modal" data-bs-target="#tambah">
                                     Tambah Barang
@@ -63,6 +61,7 @@ require 'get_stok_barang.php';
                                             <th>Nama Barang</th>
                                             <th>Stok</th>
                                             <th>Deskripsi</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -72,9 +71,13 @@ require 'get_stok_barang.php';
                                             <tr>
                                                 <td><?php echo $i; ?></td>
                                                 <td><?php echo $item['namabarang']; ?></td>
-                                                <td><?php echo $item['stock']; ?></td>
+                                                <td><?php echo $item['stock']; ?>cm</td>
                                                 <td><?php echo $item['deskripsi']; ?></td>
+                                                <td><?php echo $item['status']; ?></td>
                                                 <td>
+                                                <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#verif<?php echo $item['idbarang']; ?>">
+                                                        Verifikasi
+                                                    </button>
                                                     <button type="button" class="btn btn-warning mb-1" data-bs-toggle="modal" data-bs-target="#edit<?php echo $item['idbarang']; ?>">
                                                         Edit
                                                     </button>
@@ -89,7 +92,25 @@ require 'get_stok_barang.php';
                                             </tr>
 
                                             <?php $i++; ?>
-
+                                            <div class="modal fade" id="verif<?php echo $item['idbarang']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Verifikasi Stok</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form method="POST" action="verifikasi.php">
+                                                            <div class="modal-body">
+                                                                <p>Apakah anda yakin Stock <?php echo $item['namabarang']; ?> Sudah benar?</p>
+                                                                <input type="hidden" name="idbarang" value="<?php echo $item['idbarang']; ?>">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-success">Verifikasi</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="modal fade" id="edit<?php echo $item['idbarang']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -102,6 +123,11 @@ require 'get_stok_barang.php';
                                                                 <input type="hidden" name="idbarang" value="<?php echo $item['idbarang']; ?>">
                                                                 <input type="text" name="namabarang" value="<?php echo $item['namabarang']; ?>" class="form-control mb-3" required />
                                                                 <input type="text" name="deskripsi" value="<?php echo $item['deskripsi']; ?>" class="form-control mb-3" required />
+                                                                <select name="status" class="form-control mb-3">
+                                                                    <option value="terverifikasi" <?php echo ($item['status'] == 'terverifikasi') ? 'selected' : ''; ?>>Terverifikasi</option>
+                                                                    <option value="belum_terverifikasi" <?php echo ($item['status'] == 'belum_terverifikasi') ? 'selected' : ''; ?>>Belum</option>
+                                                                </select>
+
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="submit" class="btn btn-primary">Save</button>

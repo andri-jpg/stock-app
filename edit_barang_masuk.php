@@ -7,6 +7,7 @@ $idmasuk = $_POST['idmasuk'];
 $qty = $_POST['qty'];
 $penerima = $_POST['penerima'];
 
+
 $sql_stok_barang = "SELECT stock FROM stock WHERE idbarang='$idbarang'";
 $result_data_stok = mysqli_query($conn, $sql_stok_barang);
 $data_stok_sekarang = mysqli_fetch_array($result_data_stok);

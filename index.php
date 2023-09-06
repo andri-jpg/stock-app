@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aplikasi Management Stok Barang" />
     <meta name="keywords" content="Management Stock, Stock App, Barang" />
-    <meta name="author" content="Alan Nuari" />
+    <meta name="author" content="-" />
     <link rel="shortcut icon" href="./images/icon.png" type="image/x-icon" />
     <title>Welcome</title>
     <link href="css/styles.css" rel="stylesheet" />

@@ -18,10 +18,8 @@ require 'get_barang_keluar.php';
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Aplikasi Management Stok Barang" />
-        <meta name="keywords" content="Management Stock, Stock App, Barang" />
-        <meta name="author" content="Alan Nuari" />
+       
+        <meta name="author" content="-" />
         <link rel="shortcut icon" href="./images/icon.png" type="image/x-icon" />
         <title>Barang Keluar</title>
         <link href="css/styles.css" rel="stylesheet" />
@@ -38,15 +36,15 @@ require 'get_barang_keluar.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-sm-4">
-                        <h1 class="my-4">Barang Keluar</h1>
+                        <h1 class="my-4">Cetak Spanduk</h1>
                         <div class="card mb-4">
                             <div class="card-header d-flex justify-content-between align-items-sm-center flex-column flex-sm-row">
                                 <div class="py-2">
                                     <i class="fas fa-table me-1"></i>
-                                    Data Barang Keluar
+                                    Data cetak spanduk
                                 </div>
                                 <button type="button" class="btn btn-primary mr-auto" data-bs-toggle="modal" data-bs-target="#tambah">
-                                    Tambah Barang Keluar
+                                    Cetak spanduk
                                 </button>
                             </div>
                             <div class="card-body">
@@ -144,23 +142,45 @@ require 'get_barang_keluar.php';
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Barang Keluar</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Cetak spanduk</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="POST" action="tambah_barang_keluar.php">
-                        <div class="modal-body">
-                            <select name="barang" class="form-control mb-3">
-                                <?php foreach($data_stok_barang as $item): ?>
-                                    <option value="<?php echo $item['idbarang']; ?>"><?php echo $item['namabarang']; ?></option>
-                                <?php endforeach ?>
-                            </select>
-                            <input type="number" name="qty" placeholder="Jumlah barang" min="1" class="form-control mb-3" required />
-                            <input type="text" name="penerima" placeholder="Penerima" class="form-control mb-3" required />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Tambah</button>
-                        </div>
-                    </form>
+                    <?php foreach($data_stok_barang as $data): ?>
+                    <?php if ($data['status'] == 'belum_terverifikasi'): ?>
+                        <div style="background-color: #FFCCCC; padding: 10px;">
+    <p style="color: red; font-weight: bold;">Maaf, Anda tidak dapat memcetak karena status belum terverifikasi.</p>
+</div> <?php else: ?>
+                    <form method="POST" action="tambah_barang_keluar.php" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="barang"></label>
+                        <input type="hidden" name="idbarang" value="<?php echo $item['idbarang']; ?>">
+                        <input type="hidden" name="idkeluar" value="<?php echo $item['idkeluar']; ?>">
+                        <select name="barang" class="form-control">
+                            <?php foreach($data_stok_barang as $item): ?>
+                                <option value="<?php echo $item['idbarang']; ?>"><?php echo $item['namabarang']; ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="qty"></label>
+                        <input type="number" name="qty" placeholder="Jumlah barang cm" min="1" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="penerima"></label>
+                        <input type="text" name="penerima" placeholder="Penerima" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="foto">Unggah Foto</label>
+                        <input type="file" class="form-control-file" id="foto" name="foto_yang_mau_dicetak" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">cetak</button>
+                </div>
+            </form>
+            <?php endif; ?>
+<?php endforeach; ?>
                 </div>
             </div>
         </div>
