@@ -37,7 +37,7 @@ mysqli_close($conn);
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
        
         <meta name="author" content="-" />
-        <link rel="shortcut icon" href="./images/icon.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="./images/ico.png" type="image/x-icon" />
         <title>Detail Barang</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>

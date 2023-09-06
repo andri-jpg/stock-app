@@ -1,30 +1,30 @@
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+    <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion" style="background-color: #32CD32;">
         <div class="sb-sidenav-menu">
             <div class="nav mt-3">
-                <a class="nav-link" href="index.php">
-                    <div class="sb-nav-link-icon <?php echo strpos($_SERVER['REQUEST_URI'], 'home') ? 'text-primary' : ''; ?>"><i class="fa-solid fa-layer-group"></i></div>
+                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'dashboard') ? 'active' : ''; ?>" href="index.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: black;"></i></div>
+                    Dashboard
+                </a>
+                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'home') ? 'active' : ''; ?>" href="home.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-layer-group" style="color: black;"></i></div>
                     Stok Spanduk
                 </a>
-                <a class="nav-link" href="barang_masuk.php">
-                    <div class="sb-nav-link-icon <?php echo strpos($_SERVER['REQUEST_URI'], 'barang_masuk') ? 'text-primary' : ''; ?>"><i class="fa-solid fa-circle-plus"></i></div>
+                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'barang_masuk') ? 'active' : ''; ?>" href="barang_masuk.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-plus-circle" style="color: black;"></i></div>
                     Spanduk masuk
                 </a>
-                <a class="nav-link" href="barang_keluar.php">
-                    <div class="sb-nav-link-icon <?php echo strpos($_SERVER['REQUEST_URI'], 'barang_keluar') ? 'text-primary' : ''; ?>"><i class="fa-solid fa-circle-minus"></i></div>
+                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'barang_keluar') ? 'active' : ''; ?>" href="barang_keluar.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-minus-circle" style="color: black;"></i></div>
                     Cetak Spanduk
                 </a>
-                <a class="nav-link" href="history.php">
-                    <div class="sb-nav-link-icon <?php echo strpos($_SERVER['REQUEST_URI'], 'history') ? 'text-primary' : ''; ?>"><i class="fa-solid fa-clock"></i></div>
+                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'history') ? 'active' : ''; ?>" href="history.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-history" style="color: black;"></i></div>
                     History
-                </a>
-                <a class="nav-link mt-4" href="logout.php">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
-                    Log Out
                 </a>
             </div>
         </div>
-        <div class="sb-sidenav-footer">
+        <div class="sb-sidenav-footer" style="background-color: #228B22;">
             <div class="small">Logged in as:</div>
             <?php echo $_SESSION['email']; ?>
         </div>

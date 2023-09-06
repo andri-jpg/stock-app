@@ -5,7 +5,7 @@ require 'config/db_connect.php';
 session_start();
 
 if (isset($_SESSION['login'])) {
-    header('Location: home.php');
+    header('Location: dashboard.php');
     exit;
 }
 
@@ -20,7 +20,7 @@ if (isset($_POST['login'])) {
     if (mysqli_num_rows($cek_user) > 0) {
         $_SESSION['login'] = true;
         $_SESSION['email'] = $email;
-        header('Location: home.php');
+        header('Location: dashboard.php');
     } else {
         echo "
             <script>
@@ -40,7 +40,7 @@ if (isset($_POST['login'])) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
        
         <meta name="author" content="-" />
-        <link rel="shortcut icon" href="./images/icon.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="./images/ico.png" type="image/x-icon" />
         <title>Login</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
