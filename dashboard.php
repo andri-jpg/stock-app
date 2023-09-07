@@ -30,23 +30,24 @@ require 'get_stok_barang.php';
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-sm-4">
+                    <!-- Banner panjang di atas -->
+                    <img src="images/c.jpeg" alt="Banner" class="img-fluid float-end mx-3 my-3" style="max-width: 100%; height: auto; border: 1px solid #ccc;"/>
 
-                    <h1 class="my-4">Dashboard</h1>
+                    <!-- Tombol-tombol di bawah banner -->
                     <div class="text-start">
-    <a href="index.php" class="btn btn-primary btn-lg mb-3">
-        <i class="fa-solid fa-layer-group me-2"></i> Stok Spanduk
-    </a>
-    <a href="barang_masuk.php" class="btn btn-success btn-lg mb-3">
-        <i class="fa-solid fa-circle-plus me-2"></i> Spanduk masuk
-    </a>
-    <a href="barang_keluar.php" class="btn btn-danger btn-lg mb-3">
-        <i class="fa-solid fa-circle-minus me-2"></i> Cetak Spanduk
-    </a>
-    <a href="history.php" class="btn btn-warning btn-lg mb-3">
-        <i class="fa-solid fa-clock me-2"></i> History
-    </a>
-</div>
-
+                        <a href="index.php" class="btn btn-primary btn-lg mb-3">
+                            <i class="fa-solid fa-layer-group me-2"></i> Stok Spanduk
+                        </a>
+                        <a href="barang_masuk.php" class="btn btn-success btn-lg mb-3">
+                            <i class="fa-solid fa-circle-plus me-2"></i> Spanduk masuk
+                        </a>
+                        <a href="barang_keluar.php" class="btn btn-danger btn-lg mb-3">
+                            <i class="fa-solid fa-circle-minus me-2"></i> Cetak Spanduk
+                        </a>
+                        <a href="history.php" class="btn btn-warning btn-lg mb-3">
+                            <i class="fa-solid fa-clock me-2"></i> History
+                        </a>
+                    </div>
                 </div>
             </main>
         </div>
