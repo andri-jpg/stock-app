@@ -37,7 +37,7 @@ body {
         }
 
         .landing-banner {
-            background-image: url('images/c.jpeg');
+            background-image: url('');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
