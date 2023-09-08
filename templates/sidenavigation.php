@@ -22,6 +22,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-history" style="color: black;"></i></div>
                     History
                 </a>
+                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'logout') ? 'active' : ''; ?>" href="logout.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt" style="color: black;"></i></div>
+                    Logout
+                </a>
             </div>
         </div>
         <div class="sb-sidenav-footer" style="background-color: #228B22;">

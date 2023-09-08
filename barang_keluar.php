@@ -149,7 +149,7 @@ require 'get_barang_keluar.php';
                     <?php if ($data['status'] == 'belum_terverifikasi'): ?>
                         <div style="background-color: #FFCCCC; padding: 10px;">
     <p style="color: red; font-weight: bold;">Maaf, Anda tidak dapat memcetak karena status belum terverifikasi.</p>
-</div> <?php else: ?>
+            </div> <?php else: ?>
                     <form method="POST" action="tambah_barang_keluar.php" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">

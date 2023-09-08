@@ -31,8 +31,9 @@ require 'get_stok_barang.php';
             <main>
                 <div class="container-fluid px-sm-4">
                     <!-- Banner panjang di atas -->
-                    <img src="images/c.jpeg" alt="Banner" class="img-fluid float-end mx-3 my-3" style="max-width: 100%; height: auto; border: 1px solid #ccc;"/>
-
+                    <img src="images/c.jpeg" alt="Banner" class="img-fluid float-end mx-3 my-3" style="max-width: 510px; height: auto; border: 3px solid #111117;"/>
+                    <img src="images/c.jpeg" alt="Banner" class="img-fluid float-end mx-3 my-3" style="max-width: 510px; height: auto; border: 3px solid #111117;"/>
+                    <img src="images/c.jpeg" alt="Banner" class="img-fluid float-end mx-3 my-3" style="max-width: 510px; height: auto; border: 3px solid #111117;"/>
                     <!-- Tombol-tombol di bawah banner -->
                     <div class="text-start">
                         <a href="index.php" class="btn btn-primary btn-lg mb-3">

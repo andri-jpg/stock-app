@@ -21,15 +21,12 @@
     <link href="css/styles.css" rel="stylesheet" />
     <style>
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-image: url('images/cc.jpg'); 
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
+body {
+        background-image: url('images/wp.jpg'); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
         .landing-container {
             background-color: rgba(255, 255, 255, 0.8); 

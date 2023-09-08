@@ -35,7 +35,7 @@ if ($stok_sekarang >= $qty) {
             // Masukkan informasi foto ke tabel "foto" dengan idkeluar yang sesuai
             $sql_insert_foto = "INSERT INTO foto (idkeluar, path) VALUES ('$idkeluar', '$targetFile')";
             $sql_update_status = "UPDATE stock SET status='belum_terverifikasi' WHERE idbarang='$id'";
-mysqli_query($conn, $sql_update_status);
+            mysqli_query($conn, $sql_update_status);
             mysqli_query($conn, $sql_insert_foto);
         } else {
             echo "
