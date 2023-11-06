@@ -10,6 +10,8 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ 
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -73,6 +75,31 @@
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
+  }
+}
+
+@media (max-width: 768px) {
+  #layoutSidenav_nav {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      left: -100%;
+      transition: left 0.3s ease-in;
+      z-index: 9999;
+  }
+
+  #layoutSidenav_nav.active {
+      left: 0;
+  }
+
+  .sb-sidenav {
+      width: 200%;
+      max-width: 500px;
+  }
+
+  .sb-sidenav a {
+      padding: 10px 20px; 
   }
 }
 

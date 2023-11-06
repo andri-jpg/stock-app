@@ -10,6 +10,6 @@ $edit_barang = mysqli_query($conn, $sql_edit);
 
 mysqli_close($conn);
 
-header('Location: home.php');
+header('Location: verifikasi_op.php');
 
 ?>

@@ -2,6 +2,11 @@
 <?php
     session_start();
 
+    if (isset($_SESSION['login_o'])) {
+        header('Location: verifikasi_op.php');
+        exit;
+    }
+
     if (isset($_SESSION['login'])) {
         header('Location: dashboard.php');
         exit;
@@ -57,9 +62,11 @@ body {
     <div class="landing-container">
         <div class="landing-banner"></div>
         <div class="landing-content">
-            <h1 class="mb-5">Nuansa Reklame</h1>
-            <a href="login.php" class="px-4 text-black py-2 text-decoration-none rounded-pill fw-bold" style="background-color: #6495ed">Login here</a>
-        </div>
+    <h1 class="mb-5">Nuansa Reklame</h1>
+    <a href="login.php" class="px-4 text-black py-2 text-decoration-none rounded-pill fw-bold" style="background-color: #6495ed">Login Admin</a>
+    <a href="login_operator.php" class="px-4 text-black py-2 text-decoration-none rounded-pill fw-bold" style="background-color: #6495ed">Login Operator</a>
+</div>
+
     </div>
 </body>
 </html>

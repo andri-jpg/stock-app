@@ -2,8 +2,8 @@
 
 session_start();
 
-if (!isset($_SESSION['login'])) {
-    header('Location: login.php');
+if (!isset($_SESSION['login_o'])) {
+    header('Location: login_operator.php');
     exit;
 }
 
@@ -19,7 +19,7 @@ require 'get_stok_barang.php';
        
         <meta name="author" content="-" />
         <link rel="shortcut icon" href="./images/ico.png" type="image/x-icon" />
-        <title>Stok Barang</title>
+        <title>Verifikasi Barang</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -29,21 +29,18 @@ require 'get_stok_barang.php';
         
         <div id="layoutSidenav">
             
-            <?php require 'templates/sidenavigation.php'; ?>
+            <?php require 'templates/sidenavigation_operator.php'; ?>
 
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-sm-4">
-                        <h1 class="my-4">Stok Spanduk</h1>
+                        <h1 class="my-4">Verifikasi</h1>
                         <div class="card mb-4">
                             <div class="card-header d-flex justify-content-between align-items-sm-center flex-column flex-sm-row">
                                 <div class="py-2">
                                     <i class="fas fa-table me-1"></i>
-                                    Stok Spanduk
+                                    Verifikasi Spanduk
                                 </div>
-                                <button type="button" class="btn btn-primary mr-auto" data-bs-toggle="modal" data-bs-target="#tambah">
-                                    Tambah Barang
-                                </button>
                             </div>
                             <?php foreach($data_stok_barang as $item): ?>
                                 <?php if ($item['stock'] == 0): ?>
@@ -75,17 +72,12 @@ require 'get_stok_barang.php';
                                                 <td><?php echo $item['deskripsi']; ?></td>
                                                 <td><?php echo $item['status']; ?></td>
                                                 <td>
+                                                <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#verif<?php echo $item['idbarang']; ?>">
+                                                        Verifikasi
+                                                    </button>
                                                     <button type="button" class="btn btn-warning mb-1" data-bs-toggle="modal" data-bs-target="#edit<?php echo $item['idbarang']; ?>">
                                                         Edit
                                                     </button>
-                                                    <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#hapus<?php echo $item['idbarang']; ?>">
-                                                        Hapus
-                                                    </button>
-                                                    <a href="detail_barang.php?id=<?php echo $item['idbarang']; ?>">
-                                                        <button type="button" class="btn btn-secondary mb-1">
-                                                            Detail
-                                                        </button>
-                                                    </a>
                                             </tr>
 
                                             <?php $i++; ?>
@@ -112,15 +104,16 @@ require 'get_stok_barang.php';
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Barang</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Status</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <form method="POST" action="edit_stok_barang.php">
+                                                        <form method="POST" action="edit_status.php">
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="idbarang" value="<?php echo $item['idbarang']; ?>">
-                                                                <input type="text" name="namabarang" value="<?php echo $item['namabarang']; ?>" class="form-control mb-3" required />
-                                                                <input type="text" name="deskripsi" value="<?php echo $item['deskripsi']; ?>" class="form-control mb-3" required />
-                                                            
+                                                                <select name="status" class="form-control mb-3">
+                                                                    <option value="terverifikasi" <?php echo ($item['status'] == 'terverifikasi') ? 'selected' : ''; ?>>Terverifikasi</option>
+                                                                    <option value="belum_terverifikasi" <?php echo ($item['status'] == 'belum_terverifikasi') ? 'selected' : ''; ?>>Belum terverifikasi</option>
+                                                                </select>
 
                                                             </div>
                                                             <div class="modal-footer">

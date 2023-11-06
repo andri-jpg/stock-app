@@ -14,10 +14,6 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-plus-circle" style="color: black;"></i></div>
                     Spanduk masuk
                 </a>
-                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'barang_keluar') ? 'active' : ''; ?>" href="barang_keluar.php">
-                    <div class="sb-nav-link-icon"><i class="fas fa-minus-circle" style="color: black;"></i></div>
-                    Cetak Spanduk
-                </a>
                 <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'history') ? 'active' : ''; ?>" href="history.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-history" style="color: black;"></i></div>
                     History

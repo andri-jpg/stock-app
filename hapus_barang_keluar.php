@@ -17,10 +17,11 @@ $perubahan_stok = mysqli_query($conn, $sql_perubahan_stok);
 
 $sql_hapus = "DELETE FROM keluar WHERE idkeluar='$idkeluar'";
 $hapus_barang = mysqli_query($conn, $sql_hapus);
-
+$sql_update_status = "UPDATE stock SET status='belum_terverifikasi' WHERE idbarang='$idbarang'";
+mysqli_query($conn, $sql_update_status);
 mysqli_free_result($result_data_stok);
 mysqli_close($conn);
 
-header('Location: barang_keluar.php');
+header('Location: cetak_spanduk.php');
 
 ?>

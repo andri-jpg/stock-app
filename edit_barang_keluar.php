@@ -27,16 +27,19 @@ if ($stok_sebelum_update >= $qty) {
     $sql_edit_keluar = "UPDATE keluar SET qty='$qty', penerima='$penerima' WHERE idkeluar='$idkeluar'";
     $edit_keluar = mysqli_query($conn, $sql_edit_keluar);
 
+    $sql_update_status = "UPDATE stock SET status='belum_terverifikasi' WHERE idbarang='$idbarang'";
+    mysqli_query($conn, $sql_update_status);
+
     mysqli_free_result($result_data_stok);
     mysqli_free_result($result_data_keluar);
     mysqli_close($conn);
 
-    header('Location: barang_keluar.php');
+    header('Location: cetak_spanduk.php');
 } else {
     echo "
         <script>
             alert('Stok barang tidak cukup!');
-            window.location.href='barang_keluar.php';
+            window.location.href='cetak_spanduk.php';
         </script>
     ";
 }

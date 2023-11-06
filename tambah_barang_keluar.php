@@ -2,7 +2,6 @@
 require 'config/db_connect.php';
 
 $idbarang = $_POST['barang'];
-$id = $_POST['idbarang'];
 $qty = $_POST['qty'];
 $penerima = $_POST['penerima'];
 
@@ -13,10 +12,18 @@ $data_stok = mysqli_fetch_array($cek_stok);
 $stok_sekarang = $data_stok['stock'];
 
 if ($stok_sekarang >= $qty) {
+    if ($data_stok['status'] === 'belum_terverifikasi') {
+        echo "
+            <script>
+                alert('Maaf, Anda tidak dapat mencetak karena status belum terverifikasi.');
+                window.location.href='cetak_spanduk.php';
+            </script>
+        ";
+    } else {
     $update_stok_sekarang = $stok_sekarang - $qty;
 
     // Update stok barang
-    $sql_update_stok = "UPDATE stock SET stock='$update_stok_sekarang' WHERE idbarang='$idbarang'";
+    $sql_update_stok = "UPDATE stock SET stock='$update_stok_sekarang', status='belum_terverifikasi' WHERE idbarang='$idbarang'";
     $updatestokkeluar = mysqli_query($conn, $sql_update_stok);
 
     // Tambahkan ke tabel "keluar"
@@ -34,14 +41,12 @@ if ($stok_sekarang >= $qty) {
         if (move_uploaded_file($_FILES['foto_yang_mau_dicetak']['tmp_name'], $targetFile)) {
             // Masukkan informasi foto ke tabel "foto" dengan idkeluar yang sesuai
             $sql_insert_foto = "INSERT INTO foto (idkeluar, path) VALUES ('$idkeluar', '$targetFile')";
-            $sql_update_status = "UPDATE stock SET status='belum_terverifikasi' WHERE idbarang='$id'";
-            mysqli_query($conn, $sql_update_status);
             mysqli_query($conn, $sql_insert_foto);
         } else {
             echo "
                 <script>
                     alert('Gagal mengunggah foto!');
-                    window.location.href='barang_keluar.php';
+                    window.location.href='cetak_spanduk.php';
                 </script>
             ";
             exit;
@@ -51,13 +56,15 @@ if ($stok_sekarang >= $qty) {
     mysqli_free_result($cek_stok);
     mysqli_close($conn);
 
-    header('Location: barang_keluar.php');
+    header('Location: cetak_spanduk.php');
+}
 } else {
     echo "
         <script>
             alert('Stok barang tidak cukup!');
-            window.location.href='barang_keluar.php';
+            window.location.href='cetak_spanduk.php';
         </script>
     ";
 }
+
 ?>

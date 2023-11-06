@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 if (!isset($_SESSION['login'])) {
@@ -14,26 +15,6 @@ $sql_detail = "SELECT * FROM stock WHERE idbarang='$id'";
 $result_detail = mysqli_query($conn, $sql_detail);
 $data_detail = mysqli_fetch_array($result_detail);
 
-$selected_month = $_POST['selected_month'] ?? date("Y-m");
-
-$sql_summary = "SELECT 
-    DATE_FORMAT(keluar.tanggal, '%Y-%m') AS month_year,
-    SUM(stock.stock) AS total_stok_bulanan,
-    SUM(masuk.qty) AS total_masuk_bulanan,
-    SUM(keluar.qty) AS total_keluar_bulanan
-FROM
-    stock
-LEFT JOIN masuk ON stock.idbarang = masuk.idbarang
-LEFT JOIN keluar ON stock.idbarang = keluar.idbarang
-WHERE
-    DATE_FORMAT(keluar.tanggal, '%Y-%m') = '$selected_month'
-    AND stock.idbarang = $id
-GROUP BY
-    month_year";
-
-$result_summary = mysqli_query($conn, $sql_summary);
-$data_summary = mysqli_fetch_assoc($result_summary);
-
 $sql_detail_masuk = "SELECT * FROM masuk, stock WHERE masuk.idbarang=stock.idbarang AND stock.idbarang='$id'";
 $result_detail_masuk = mysqli_query($conn, $sql_detail_masuk);
 $data_detail_masuk = mysqli_fetch_all($result_detail_masuk, MYSQLI_ASSOC);
@@ -46,6 +27,7 @@ mysqli_free_result($result_detail);
 mysqli_free_result($result_detail_masuk);
 mysqli_free_result($result_detail_keluar);
 mysqli_close($conn);
+
 ?>
 
 <!DOCTYPE html>
@@ -61,29 +43,34 @@ mysqli_close($conn);
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-    <?php require 'templates/topnavigation.php'; ?>
-    <div id="layoutSidenav">
-        <?php require 'templates/sidenavigation.php'; ?>
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid px-4">
-                    <h1 class="my-4">Detail Barang</h1>
-                    <div class="card mb-4">
-                        <div class="card-header py-3">
-                            <div class="row my-2">
-                                <p class="col col-md-3 fw-bold m-0">Nama Barang</p>
-                                <p class="col col-md-9 m-0">: <?php echo $data_detail['namabarang'] ?></p>
+        
+        <?php require 'templates/topnavigation.php'; ?>
+
+        <div id="layoutSidenav">
+            
+            <?php require 'templates/sidenavigation.php'; ?>
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="my-4">Detail Barang</h1>
+                        <div class="card mb-4">
+                            <div class="card-header py-3">
+                                <div class="row my-2">
+                                    <p class="col col-md-3 fw-bold m-0">Nama Barang</p>
+                                    <p class="col col-md-9 m-0">: <?php echo $data_detail['namabarang'] ?></p>
+                                </div>
+                                <div class="row my-2">
+                                    <p class="col col-md-3 fw-bold m-0">Stok</p>
+                                    <p class="col col-md-9 m-0">: <?php echo $data_detail['stock'] ?></p>
+                                </div>
+                                <div class="row my-2">
+                                    <p class="col col-md-3 fw-bold m-0">Deskripsi</p>
+                                    <p class="col col-md-9 m-0">: <?php echo $data_detail['deskripsi'] ?></p>
+                                </div>
                             </div>
-                            <div class="row my-2">
-                                <p class="col col-md-3 fw-bold m-0">Stok</p>
-                                <p class="col col-md-9 m-0">: <?php echo $data_detail['stock'], ' cm'?></p>
-                            </div>
-                            <div class="row my-2">
-                                <p class="col col-md-3 fw-bold m-0">Deskripsi</p>
-                                <p class="col col-md-9 m-0">: <?php echo $data_detail['deskripsi'] ?></p>
-                            </div>
-                        </div>
-                        <div class="card-body">
+
+                            <div class="card-body">
                                 <table id="datatablesSimple" class="table table-striped">
                                     <thead>
                                         <tr>
@@ -102,7 +89,7 @@ mysqli_close($conn);
                                                 <td><?php echo $i; ?></td>
                                                 <td><?php echo $item_masuk['tanggal']; ?></td>
                                                 <td><?php echo $item_masuk['namabarang']; ?></td>
-                                                <td><?php echo $item_masuk['qty'], ' cm'; ?></td>
+                                                <td><?php echo $item_masuk['qty']; ?></td>
                                                 <td>Barang masuk</td>
                                                 <td><?php echo $item_masuk['penerima']; ?></td>
                                             </tr>
@@ -113,7 +100,7 @@ mysqli_close($conn);
                                                 <td><?php echo $i; ?></td>
                                                 <td><?php echo $item_keluar['tanggal']; ?></td>
                                                 <td><?php echo $item_keluar['namabarang']; ?></td>
-                                                <td><?php echo $item_keluar['qty'], ' cm'; ?></td>
+                                                <td><?php echo $item_keluar['qty']; ?></td>
                                                 <td>Barang keluar</td>
                                                 <td><?php echo $item_keluar['penerima']; ?></td>
                                             </tr>
@@ -122,48 +109,20 @@ mysqli_close($conn);
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="card-body">
-    <form method="POST">
-        <div class="form-group">
-            <label for="selected_month">Pilih Bulan:</label>
-            <input type="month" name="selected_month" id="selected_month" class="form-control" value="<?php echo $selected_month; ?>">
-        </div>
-        <button type="submit" class="btn btn-primary">Tampilkan Rangkuman Bulanan</button>
-    </form>
-
-    <?php if (!empty($data_summary)): ?>
-        <h2>Rangkuman Bulanan pada Bulan <?php echo date("F Y", strtotime($selected_month)); ?></h2>
-        <table class="table">
-            <tr>
-                <th>Deskripsi</th>
-                <th>Jumlah</th>
-            </tr>
-            <tr>
-                <td>Total Stok</td>
-                <td><?php echo $data_summary['total_stok_bulanan']; ?> cm</td>
-            </tr>
-            <tr>
-                <td>Total Barang Masuk</td>
-                <td><?php echo $data_summary['total_masuk_bulanan']; ?> cm</td>
-            </tr>
-            <tr>
-                <td>Total Barang Keluar</td>
-                <td><?php echo $data_summary['total_keluar_bulanan']; ?> cm</td>
-            </tr>
-        </table>
-    <?php endif; ?>
-</div>
-
+                        </div>
                     </div>
-                </div>
-            </main>
-            <?php require 'templates/footer.php'; ?>
+                </main>
+                
+                <?php require 'templates/footer.php'; ?>
+
+            </div>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script> -->
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
         <script src="js/datatables-simple-demo.js"></script>
-</body>
+    </body>
 </html>

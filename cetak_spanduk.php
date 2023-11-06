@@ -2,8 +2,8 @@
 
 session_start();
 
-if (!isset($_SESSION['login'])) {
-    header('Location: login.php');
+if (!isset($_SESSION['login_o'])) {
+    header('Location: login_operator.php');
     exit;
 }
 
@@ -31,7 +31,7 @@ require 'get_barang_keluar.php';
 
         <div id="layoutSidenav">
             
-            <?php require 'templates/sidenavigation.php'; ?>
+            <?php require 'templates/sidenavigation_operator.php'; ?>
 
             <div id="layoutSidenav_content">
                 <main>
@@ -66,7 +66,7 @@ require 'get_barang_keluar.php';
                                                 <td><?php echo $i; ?></td>
                                                 <td><?php echo $item['tanggal']; ?></td>
                                                 <td><?php echo $item['namabarang']; ?></td>
-                                                <td><?php echo $item['qty']; ?></td>
+                                                <td><?php echo $item['qty'] . 'cm'; ?></td>
                                                 <td><?php echo $item['penerima']; ?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-warning mb-1" data-bs-toggle="modal" data-bs-target="#edit<?php echo $item['idkeluar']; ?>">
@@ -137,7 +137,6 @@ require 'get_barang_keluar.php';
 
             </div>
         </div>
-
         <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -146,42 +145,48 @@ require 'get_barang_keluar.php';
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <?php foreach($data_stok_barang as $item): ?>
                 <form method="POST" action="tambah_barang_keluar.php" enctype="multipart/form-data">
-                    <?php if ($item['status'] == 'belum_terverifikasi'): ?>
-                        <div style="background-color: #FFCCCC; padding: 10px;">
-                            <p style="color: red; font-weight: bold;">Maaf, Anda tidak dapat mencetak karena status belum terverifikasi.</p>
-                        </div>
-                    <?php else: ?>
-                        <div class="form-group">
-                            <label for="barang"></label>
-                            <input type="hidden" name="idbarang" value="<?php echo $item['idbarang']; ?>">
-                            <input type="hidden" name="idkeluar" value="<?php echo $item['idkeluar']; ?>">
-                            <select name="barang" class="form-control">
-                                <?php foreach($data_stok_barang as $item): ?>
-                                    <option value="<?php echo $item['idbarang']; ?>"><?php echo $item['namabarang']; ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="qty"></label>
-                            <input type="number" name="qty" placeholder="Jumlah barang cm" min="1" class="form-control" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="penerima"></label>
-                            <input type="text" name="penerima" placeholder="Penerima" class="form-control" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="foto">Unggah Foto</label>
-                            <input type="file" class="form-control-file" id="foto" name="foto_yang_mau_dicetak" required>
-                        </div>
-                    <?php endif; ?>
+                    <div class="form-group">
+                        <label for="barang">Pilih Barang:</label>
+                        <select name="barang" class="form-control">
+                            <?php foreach($data_stok_barang as $item): ?>
+                                <option value="<?php echo $item['idbarang']; ?>"><?php echo $item['namabarang']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="qty">Jumlah barang cm:</label>
+                        <input type="number" name="qty" placeholder="Jumlah barang cm" min="1" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="penerima">Penerima:</label>
+                        <input type="text" name="penerima" placeholder="Penerima" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="foto">Unggah Foto</label>
+                        <input type="file" class="form-control-file" id="foto" name="foto_yang_mau_dicetak" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btn-cetak">Cetak</button>
+                    </div>
                 </form>
-                <?php endforeach; ?>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('btn-cetak').addEventListener('click', function () {
+        var selectedBarang = document.querySelector('select[name="barang"]');
+        if (selectedBarang.value === 'belum_terverifikasi') {
+            alert('Maaf, Anda tidak dapat mencetak karena status belum terverifikasi.');
+            event.preventDefault();
+        }
+    });
+</script>
+
+
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
